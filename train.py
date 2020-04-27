@@ -60,7 +60,7 @@ DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "logs")
 
 
 
-class CustomConfig(Config):
+class DentConfig(Config):
     """Configuration for training on the toy  dataset.
     Derives from the base Config class and overrides some values.
     """
@@ -85,9 +85,9 @@ class CustomConfig(Config):
 #  Dataset
 ############################################################
 
-class CustomDataset(utils.Dataset):
+class DentDataset(utils.Dataset):
 
-    def load_custom(self, dataset_dir, subset):
+    def load_Dent(self, dataset_dir, subset):
         """Load a subset of the dataset.
         dataset_dir: Root directory of the dataset.
         subset: Subset to load: train or val
@@ -182,13 +182,13 @@ class CustomDataset(utils.Dataset):
 def train(model):
     """Train the model."""
     # Training dataset.
-    dataset_train = CustomDataset()
-    dataset_train.load_custom(args.dataset, "train")
+    dataset_train = DentDataset()
+    dataset_train.load_Dent(args.dataset, "train")
     dataset_train.prepare()
 
     # Validation dataset
-    dataset_val = CustomDataset()
-    dataset_val.load_custom(args.dataset, "val")
+    dataset_val = DentDataset()
+    dataset_val.load_Dent(args.dataset, "val")
     dataset_val.prepare()
 
     # *** This training schedule is an example. Update to your needs ***
@@ -250,13 +250,13 @@ if __name__ == '__main__':
 
     # Parse command line arguments
     parser = argparse.ArgumentParser(
-        description='Train Mask R-CNN to detect custom class.')
+        description='Train Mask R-CNN to detect Dent class.')
     parser.add_argument("command",
                         metavar="<command>",
                         help="'train' or 'splash'")
     parser.add_argument('--dataset', required=False,
-                        metavar="/path/to/custom/dataset/",
-                        help='Directory of the custom dataset')
+                        metavar="/path/to/Dent/dataset/",
+                        help='Directory of the Dent dataset')
     parser.add_argument('--weights', required=True,
                         metavar="/path/to/weights.h5",
                         help="Path to weights .h5 file or 'coco'")
@@ -285,9 +285,9 @@ if __name__ == '__main__':
 
     # Configurations
     if args.command == "train":
-        config = CustomConfig()
+        config = DentConfig()
     else:
-        class InferenceConfig(CustomConfig):
+        class InferenceConfig(DentConfig):
             # Set batch size to 1 since we'll be running inference on
             # one image at a time. Batch size = GPU_COUNT * IMAGES_PER_GPU
             GPU_COUNT = 1
